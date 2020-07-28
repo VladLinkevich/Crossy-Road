@@ -7,28 +7,53 @@ public class TerrainGenerator : MonoBehaviour
     [SerializeField] private int maxTerrainCount;
     [SerializeField] private List<TerrainData> terrainDatas = new List<TerrainData>();
 
-    private List<GameObject> currentTerrains = new List<GameObject>();
 
+    private GameObject[,] poolTerrain;
+    private int[] indexPool;
+    private List<GameObject> currentTerrains = new List<GameObject>();
 
     private int selectTerrain = 0;
     private int terrainRepeat = 0;
 
+    private GameObject terrain;
     public Vector3 currentPosition = new Vector3(0, 0, 0);
 
 
 
     void Start()
     {
-        for (int i = 0; i < maxTerrainCount; i++)
+
+
+        //Cоздание пула объектов
+        indexPool = new int[terrainDatas.Count];
+        for (int i = 0, end = terrainDatas.Count; i < end; ++i)
+        {
+            indexPool[i] = 0;
+        }
+        poolTerrain = new GameObject[terrainDatas.Count, maxTerrainCount];                                      
+        for (int i = 0, firstEnd = poolTerrain.GetLength(0); i < firstEnd; ++i)
+        {
+            for (int j = 0, secondEnd = poolTerrain.GetLength(1); j < secondEnd; ++j)
+            {
+                poolTerrain[i, j] = Instantiate(terrainDatas[i].terrain, currentPosition, Quaternion.identity);
+                poolTerrain[i, j].SetActive(false);
+            }
+        }
+
+
+        // Чтобы при старте появлялись объекты terrainsDatas[0](в моем случае это земля) пять раз подряд. Что-то вроде начальной сайв зоны  
+        selectTerrain = 0;                                                                                       
+        terrainRepeat = 3;          
+
+
+        // Начальная инициализация поля
+        for (int i = 0; i < maxTerrainCount; i++)  
         {
             SpawnTerrain(true);
         }
 
     }
 
-    void Update()
-    {
-    }
     public void SpawnTerrain(bool startGenerator = false)
     {
 
@@ -40,22 +65,34 @@ public class TerrainGenerator : MonoBehaviour
             terrainRepeat = Random.Range(0, terrainDatas[selectTerrain].maxInSuccession);
         }
 
-        GameObject terrain = Instantiate(terrainDatas[selectTerrain].terrain, currentPosition, Quaternion.identity);
-
-        currentTerrains.Add(terrain);
-
+         
+        currentTerrains.Add(selectPassiveTerrain(selectTerrain));
 
         currentPosition.x++;
         terrainRepeat--;
+
         return;
 
 
     }
 
+    private GameObject selectPassiveTerrain(int selectTerrain)
+    {
+        terrain = poolTerrain[selectTerrain, indexPool[selectTerrain]];
+
+        terrain.transform.position = currentPosition;
+        terrain.SetActive(true);
+       
+        ++indexPool[selectTerrain];
+        indexPool[selectTerrain] = indexPool[selectTerrain] == maxTerrainCount ? 0 : indexPool[selectTerrain];
+
+        return terrain;
+    }
+
     public void RemoveTerrain()
     {
 
-        Destroy(currentTerrains[0]);
+        currentTerrains[0].SetActive(false);
         currentTerrains.RemoveAt(0);
 
     }

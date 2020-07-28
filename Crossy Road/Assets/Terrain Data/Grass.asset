@@ -12,6 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f40fc0aa382523d4aa147e2025b789a9, type: 3}
   m_Name: Grass
   m_EditorClassIdentifier: 
-  nameTerrain: 
-  terrain: {fileID: 0}
-  maxInSuccession: 0
+  terrain: {fileID: 3919411799819087388, guid: b2efaf6e2707b864ab55a7cf705a18c1, type: 3}
+  maxInSuccession: 5
