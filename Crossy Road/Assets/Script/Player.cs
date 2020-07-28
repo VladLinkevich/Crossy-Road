@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Text scoreText;
     //[SerializeField] private Vector3 finalPos;
 
+    Vector3 diffence;
     private FollowPlayer camera;
     private int coin = 0;
     private int score = 0;
@@ -43,14 +44,16 @@ public class Player : MonoBehaviour
 
     private void moveCharacter(Vector3 diffence, Vector3 rotate)
     {
-        //animator.SetTrigger("hop");
-        transform.parent = null;
-        isHop = true;
-        transform.DORotate(rotate, duration, RotateMode.Fast);
-        transform
-            .DOJump((transform.position + diffence), 1f, 1, duration, false)
-            .OnComplete(()=> { isHop = false; });
 
+
+        transform
+            .DOJump((transform.position + diffence), 1f, 1, duration, false);
+
+        isHop = true;
+        if (transform.parent == null)
+        {
+            transform.DORotate(rotate, duration, RotateMode.Fast);
+        }
 
 
         moveSound.pitch = Random.Range(0.9f, 1.1f);
@@ -70,7 +73,7 @@ public class Player : MonoBehaviour
 
     private void KeyboardController()
     {
-        if (Input.GetKeyDown(KeyCode.W) /*&& !isHop*/)
+        if (Input.GetKeyDown(KeyCode.W) && !isHop)
         {
 
             //animator.SetTrigger("hop");
@@ -84,7 +87,7 @@ public class Player : MonoBehaviour
             {
                 inaccuracy = transform.position.z - Mathf.Round(transform.position.z);
             }
-
+            diffence = new Vector3(1, 0, -inaccuracy);
             moveCharacter(new Vector3(1, 0, -inaccuracy), new Vector3(0, 0, 0));
             camera.fastUpMove();
 
@@ -94,6 +97,8 @@ public class Player : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.A) && !isHop)
         {
             //animator.SetTrigger("leftHop");
+            diffence = new Vector3(0, 0, 1);
+
             moveCharacter(new Vector3(0, 0, 1), new Vector3(0, -90, 0));
             camera.sideMove();
 
@@ -101,6 +106,8 @@ public class Player : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.D) && !isHop)
         {
             //animator.SetTrigger("rightHop");
+            diffence = new Vector3(0, 0, -1);
+
             moveCharacter(new Vector3(0, 0, -1), new Vector3(0, 90, 0));
             camera.sideMove();
 
@@ -109,18 +116,26 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-
+        isHop = false;
         switch (collision.gameObject.tag)
         {
             case "Vehicle":     DestroyPlayer();                                    break;
             case "Water":       DestroyPlayer();                                    break;
             case "Log":         transform.parent = collision.collider.transform;    break;
             case "Coin":        takeCoinFunction(collision.gameObject);             break;
+            case "Tree":        transform.DOJump(getPosition(), 0.1f, 1, 0.15f, false);     break;
             default:            transform.parent = null;                            break;
         }
 
     }
 
+
+    public Vector3 getPosition()
+    {
+        return new Vector3((int)(transform.position.x + 0.5),
+                            1f,
+                           (int)(transform.position.z + 0.5) - (transform.position.z < 0 ? 1 : 0));
+    }
     public void takeCoinFunction(GameObject gameObject)
     {
         ++coin;
@@ -138,7 +153,9 @@ public class Player : MonoBehaviour
         }
         PlayerPrefs.SetInt("Score", score);
         PlayerPrefs.SetInt("Coin", coin);
+
         Application.LoadLevel("Result");
+
         Destroy(gameObject);
 
     }

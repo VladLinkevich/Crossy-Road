@@ -261,6 +261,7 @@ MonoBehaviour:
   moveSound: {fileID: 2045813865}
   takeCoin: {fileID: 4733155377218425500}
   coinText: {fileID: 0}
+  scoreText: {fileID: 0}
 --- !u!1 &3210502070146384171
 GameObject:
   m_ObjectHideFlags: 0

@@ -43,7 +43,7 @@ public class TerrainGenerator : MonoBehaviour
 
         // Чтобы при старте появлялись объекты terrainsDatas[0](в моем случае это земля) пять раз подряд. Что-то вроде начальной сайв зоны  
         selectTerrain = 0;                                                                                       
-        terrainRepeat = 3;          
+        terrainRepeat = 32;          
 
 
         // Начальная инициализация поля

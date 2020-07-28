@@ -239,10 +239,10 @@ MonoBehaviour:
   - {fileID: 1116218492925088494}
   - {fileID: 2747123024946841113}
   minObjectDuration: 12
-  maxObjectDuration: 16
+  maxObjectDuration: 12
   minSpawnDelay: 0.8
-  maxSpawnDelay: 2.5
-  poolCount: 15
+  maxSpawnDelay: 2
+  poolCount: 14
 --- !u!1 &5610788955187721375
 GameObject:
   m_ObjectHideFlags: 0
