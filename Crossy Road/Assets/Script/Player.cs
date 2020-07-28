@@ -131,8 +131,16 @@ public class Player : MonoBehaviour
 
     private void DestroyPlayer()
     {
+
+        if (PlayerPrefs.GetInt("BestScore") < score)
+        {
+            PlayerPrefs.SetInt("BestScore", score);
+        }
+        PlayerPrefs.SetInt("Score", score);
         PlayerPrefs.SetInt("Coin", coin);
+        Application.LoadLevel("Result");
         Destroy(gameObject);
+
     }
     public void finishHop()
     {

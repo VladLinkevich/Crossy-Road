@@ -48,11 +48,11 @@ public class CoinGenerator : MonoBehaviour
     {
         int coordinateZ = 0;
 
-      //  do
-      //  {
-      //      coordinateZ = (int)Random.Range(10, 10);
-      //  } while ((playerTransform.position.z + coordinateZ) > 10 || (playerTransform.position.z - coordinateZ) < -10);
+        do
+        {
+            coordinateZ = (int)Random.Range(-10, 10);
+        } while ((playerTransform.position.z + coordinateZ) > 9 || (playerTransform.position.z - coordinateZ) < -9);
 
-        return new Vector3((int)Random.Range(0, 10), 0, coordinateZ);
+        return new Vector3(10 + (int)Random.Range(0, 10), 0, coordinateZ);
     }
 }

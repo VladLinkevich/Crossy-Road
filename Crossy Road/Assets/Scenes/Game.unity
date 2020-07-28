@@ -384,7 +384,7 @@ GameObject:
   - component: {fileID: 421539642}
   - component: {fileID: 421539641}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -440,7 +440,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: 0
 --- !u!222 &421539642
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -496,8 +496,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -0.5}
+  m_SizeDelta: {x: 0, y: -1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &667624429
 MonoBehaviour:
@@ -526,7 +526,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 1000
 --- !u!222 &667624430
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -871,7 +871,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 8612dd1bae7a29541b7bd2f70c11602a, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0
+  m_Volume: 0.01
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -969,6 +969,52 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1576185113
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1576185115}
+  - component: {fileID: 1576185114}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1576185114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1576185113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10f6a00e7d066754cad4c032a407341b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Mixer: {fileID: 24300002, guid: bedfccca3e6f8fa458ad4357b9fe548a, type: 2}
+  backgroundToggle: {fileID: 0}
+  effectToggle: {fileID: 0}
+--- !u!4 &1576185115
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1576185113}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.5894879, y: 8.826057, z: -1.3560485}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1684935698
 GameObject:
   m_ObjectHideFlags: 0
@@ -1000,8 +1046,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 426964001}
   coin: {fileID: 6253672103893832178, guid: dcc11575e5037264a9bf01ae75243143, type: 3}
-  minSpawnDelay: 5
-  maxSpawnDelay: 15
+  minSpawnDelay: 1
+  maxSpawnDelay: 2
   maxPoolCoin: 5
 --- !u!4 &1684935700
 Transform:
@@ -1099,5 +1145,10 @@ PrefabInstance:
       propertyPath: coinText
       value: 
       objectReference: {fileID: 9480075}
+    - target: {fileID: 8852229344004757042, guid: a09fbc3c39888e94e80901563c5e5293,
+        type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 421539641}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a09fbc3c39888e94e80901563c5e5293, type: 3}
