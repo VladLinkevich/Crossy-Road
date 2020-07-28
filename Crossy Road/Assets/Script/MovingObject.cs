@@ -5,8 +5,6 @@ using DG.Tweening;
 
 public class MovingObject : MonoBehaviour
 {
-    [SerializeField] private float minDuratiun;
-    [SerializeField] private float maxDuratiun;
 
     private float duration;
     private bool firstStart = true;
@@ -14,7 +12,7 @@ public class MovingObject : MonoBehaviour
     void Start()
     {
         gameObject.SetActive(false);
-        duration = Random.Range(minDuratiun, maxDuratiun);
+      
     }
 
     public void OnEnable()
@@ -22,10 +20,14 @@ public class MovingObject : MonoBehaviour
         if (!firstStart)
         {
             transform
-                .DOMoveZ(transform.position.z + 50 - (100 * transform.rotation.x), duration, false)
+                .DOMoveZ(transform.position.z + 40 - (80 * transform.rotation.y), duration, false)
                 .OnComplete(() => { gameObject.SetActive(false); });
         } else { firstStart = false; }
     }
 
+    public void SetDuration(float duration)
+    {
+        this.duration = duration;
+    }
 
 }

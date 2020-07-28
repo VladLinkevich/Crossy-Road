@@ -1046,8 +1046,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 426964001}
   coin: {fileID: 6253672103893832178, guid: dcc11575e5037264a9bf01ae75243143, type: 3}
-  minSpawnDelay: 1
-  maxSpawnDelay: 2
+  minSpawnDelay: 5
+  maxSpawnDelay: 15
   maxPoolCoin: 5
 --- !u!4 &1684935700
 Transform:

@@ -7,13 +7,17 @@ public class SpawnerMovingObject : MonoBehaviour
 
     [SerializeField] private new GameObject gameObject;
     [SerializeField] private List<Transform> spawnPos = new List<Transform>();
+    [SerializeField] private float minObjectDuration;
+    [SerializeField] private float maxObjectDuration;
     [SerializeField] private float minSpawnDelay;
     [SerializeField] private float maxSpawnDelay;
     [SerializeField] private int poolCount;
 
 
+    private MovingObject movingObject;
     private GameObject obj;
     private List<GameObject> poolObjects = new List<GameObject>();
+    private float duration;
     private int indexPositionObject = 0;
     private int poolIndex = 0;
 
@@ -21,11 +25,15 @@ public class SpawnerMovingObject : MonoBehaviour
     void Start()
     {
 
+
+        duration = Random.Range(minObjectDuration, maxObjectDuration);
+
         indexPositionObject = Random.Range(0, spawnPos.Count);
         for (int i = 0; i < poolCount; ++i)
-        {
-           
+        {  
             obj = Instantiate(gameObject, spawnPos[indexPositionObject].position, spawnPos[indexPositionObject].rotation);
+            movingObject = obj.GetComponent<MovingObject>();
+            movingObject.SetDuration(duration);
             poolObjects.Add(obj);
             
         }

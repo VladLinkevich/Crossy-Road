@@ -116,13 +116,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4608039775976776209}
-  m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0.2, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 279361601968639796}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &4703537928986675184
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,9 +238,11 @@ MonoBehaviour:
   spawnPos:
   - {fileID: 1116218492925088494}
   - {fileID: 2747123024946841113}
-  minSpawnDelay: 3
-  maxSpawnDelay: 6
-  poolCount: 4
+  minObjectDuration: 12
+  maxObjectDuration: 16
+  minSpawnDelay: 0.8
+  maxSpawnDelay: 2.5
+  poolCount: 15
 --- !u!1 &5610788955187721375
 GameObject:
   m_ObjectHideFlags: 0
