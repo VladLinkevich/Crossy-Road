@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public class saveObject : MonoBehaviour
 {
 
-    [SerializeField] private GameObject coinTextObject;
-    [SerializeField] private Text scoreText;
-    [SerializeField] private Text bestScoreText;
+    [SerializeField] private GameObject coinTextObject = null;
+    [SerializeField] private Text scoreText = null;
+    [SerializeField] private Text bestScoreText = null;
  
 
     private Text coinText;

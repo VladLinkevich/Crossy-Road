@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class CoinGenerator : MonoBehaviour
 {
-    // Start is called before the first frame update
 
-    [SerializeField] private Transform playerTransform;
-    [SerializeField] private GameObject coin;
-    [SerializeField] private float minSpawnDelay;
-    [SerializeField] private float maxSpawnDelay;
-    [SerializeField] private int maxPoolCoin;
+    [SerializeField] private Transform playerTransform = null;
+    [SerializeField] private GameObject coin = null;
+    [SerializeField] private float minSpawnDelay = 0;
+    [SerializeField] private float maxSpawnDelay = 0;
+    [SerializeField] private int maxPoolCoin = 0;
 
     private List<GameObject> poolCoins = new List<GameObject>();
     private int indexPool = 0;
@@ -18,11 +17,14 @@ public class CoinGenerator : MonoBehaviour
 
     void Start()
     {
+
         for (int i = 0; i < maxPoolCoin; ++i)
         {
             poolCoins.Add(Instantiate(coin, transform.position, coin.transform.rotation));
             poolCoins[i].SetActive(false);
         }
+
+
         StartCoroutine(SpawnCoin());
     }
 

@@ -5,19 +5,19 @@ using UnityEngine;
 public class SpawnerMovingObject : MonoBehaviour
 {
 
-    [SerializeField] private new GameObject gameObject;
+    [SerializeField] private new GameObject gameObject = null;
     [SerializeField] private List<Transform> spawnPos = new List<Transform>();
-    [SerializeField] private float minObjectDuration;
-    [SerializeField] private float maxObjectDuration;
-    [SerializeField] private float minSpawnDelay;
-    [SerializeField] private float maxSpawnDelay;
-    [SerializeField] private int poolCount;
+    [SerializeField] private float minObjectDuration = 0;
+    [SerializeField] private float maxObjectDuration = 0;
+    [SerializeField] private float minSpawnDelay = 0;
+    [SerializeField] private float maxSpawnDelay = 0;
+    [SerializeField] private int poolCount = 0;
 
 
-    private MovingObject movingObject;
-    private GameObject obj;
+    private MovingObject movingObject = null;
+    private GameObject obj = null;
     private List<GameObject> poolObjects = new List<GameObject>();
-    private float duration;
+    private float duration = 0;
     private int indexPositionObject = 0;
     private int poolIndex = 0;
 
@@ -25,10 +25,12 @@ public class SpawnerMovingObject : MonoBehaviour
     void Start()
     {
 
-
+        // для каждой дороге у нас свое значение скорости
         duration = Random.Range(minObjectDuration, maxObjectDuration);
-
+        // выбираем место где будем респить объекты
         indexPositionObject = Random.Range(0, spawnPos.Count);
+
+        // Создаем пул объектов
         for (int i = 0; i < poolCount; ++i)
         {  
             obj = Instantiate(gameObject, spawnPos[indexPositionObject].position, spawnPos[indexPositionObject].rotation);
@@ -41,6 +43,7 @@ public class SpawnerMovingObject : MonoBehaviour
         
     }
 
+    // Когда наша дорога активируется запускаем респ объектов
     public void OnEnable()
     {
         StartCoroutine(SpawnVehicle());

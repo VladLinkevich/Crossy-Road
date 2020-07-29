@@ -405,8 +405,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d739d46d9115a747b331b3bba54bfd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadGameButton: {fileID: 0}
-  exitButton: {fileID: 0}
 --- !u!4 &816804990
 Transform:
   m_ObjectHideFlags: 0
@@ -605,7 +603,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 816804989}
-        m_MethodName: pressExit
+        m_MethodName: PressExit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1173,7 +1171,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 816804989}
-        m_MethodName: pressPlay
+        m_MethodName: PressPlay
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

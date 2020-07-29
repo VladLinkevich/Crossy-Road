@@ -7,23 +7,24 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
 
-    [SerializeField] private TerrainGenerator terrainGenerator;
-    [SerializeField] private GameObject cameraObject;
-    [SerializeField] private float duration;
-    [SerializeField] private AudioSource moveSound;
-    [SerializeField] private AudioSource takeCoin;
-    [SerializeField] private Text coinText;
-    [SerializeField] private Text scoreText;
-    //[SerializeField] private Vector3 finalPos;
+    [SerializeField] private TerrainGenerator terrainGenerator = null;
+    [SerializeField] private GameObject cameraObject = null;
+    [SerializeField] private float duration = 0;
+    [SerializeField] private AudioSource moveSound = null;
+    [SerializeField] private AudioSource takeCoin = null;
+    [SerializeField] private Text coinText = null;
+    [SerializeField] private Text scoreText = null;
+ 
 
-    Vector3 diffence;
-    private FollowPlayer camera;
+    Vector3 diffence = new Vector3();
+    private FollowPlayer camera = null;
     private int coin = 0;
     private int score = 0;
     private bool isHop = false;
 
     void Start()
     {
+        //Считываем сколько у игрока монет
         coin = PlayerPrefs.GetInt("Coin");
         coinText.text = coin.ToString();
 
@@ -35,35 +36,33 @@ public class Player : MonoBehaviour
     void Update()
     {
 
-        checkOutput();
+        СheckOutput();
+
         KeyboardController();
-        if (!camera.isPlay()) { DestroyPlayer(); }
-        if (transform.parent != null) { camera.sideMove(); }
+
+        if (!camera.IsPlay()) { DestroyPlayer(); }
+        if (transform.parent != null) { camera.SideMove(); }
 
     }
 
-    private void moveCharacter(Vector3 diffence, Vector3 rotate)
+    //Перемещение и ротация игрока в пространстве + звук  
+    private void MoveCharacter(Vector3 diffence, Vector3 rotate)
     {
-
+        isHop = true;
 
         transform
-            .DOJump((transform.position + diffence), 1f, 1, duration, false);
-
-        isHop = true;
-        if (transform.parent == null)
-        {
+           .DOJump((transform.position + diffence), 1f, 1, duration, false);
+      
+        transform.parent = null;
             transform.DORotate(rotate, duration, RotateMode.Fast);
-        }
-
 
         moveSound.pitch = Random.Range(0.9f, 1.1f);
         moveSound.Play();
 
-
-
     }
 
-    private void checkOutput()
+
+    private void СheckOutput()
     {
         if (gameObject.transform.position.z >= 10f || gameObject.transform.position.z <= -10)
         {
@@ -76,7 +75,6 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W) && !isHop)
         {
 
-            //animator.SetTrigger("hop");
 
             if (transform.position.x >= 0)
             {
@@ -88,28 +86,35 @@ public class Player : MonoBehaviour
                 inaccuracy = transform.position.z - Mathf.Round(transform.position.z);
             }
             diffence = new Vector3(1, 0, -inaccuracy);
-            moveCharacter(new Vector3(1, 0, -inaccuracy), new Vector3(0, 0, 0));
-            camera.fastUpMove();
+            MoveCharacter(new Vector3(1, 0, -inaccuracy), new Vector3(0, 0, 0));
+            camera.FastUpMove();
 
             ++score;
             scoreText.text = score.ToString();
         }
         else if (Input.GetKeyDown(KeyCode.A) && !isHop)
         {
-            //animator.SetTrigger("leftHop");
+ 
             diffence = new Vector3(0, 0, 1);
 
-            moveCharacter(new Vector3(0, 0, 1), new Vector3(0, -90, 0));
-            camera.sideMove();
+            MoveCharacter(new Vector3(0, 0, 1), new Vector3(0, -90, 0));
+            camera.SideMove();
 
         }
         else if (Input.GetKeyDown(KeyCode.D) && !isHop)
         {
-            //animator.SetTrigger("rightHop");
+
             diffence = new Vector3(0, 0, -1);
 
-            moveCharacter(new Vector3(0, 0, -1), new Vector3(0, 90, 0));
-            camera.sideMove();
+            MoveCharacter(new Vector3(0, 0, -1), new Vector3(0, 90, 0));
+            camera.SideMove();
+
+        } else if (Input.GetKeyDown(KeyCode.S) && !isHop)
+        {
+
+            diffence = new Vector3(-1, 0, 0);
+            camera.FastUpMove();
+            MoveCharacter(new Vector3(-1, 0, 0), new Vector3(0, 180, 0));
 
         }
     }
@@ -119,24 +124,25 @@ public class Player : MonoBehaviour
         isHop = false;
         switch (collision.gameObject.tag)
         {
-            case "Vehicle":     DestroyPlayer();                                    break;
-            case "Water":       DestroyPlayer();                                    break;
-            case "Log":         transform.parent = collision.collider.transform;    break;
-            case "Coin":        takeCoinFunction(collision.gameObject);             break;
-            case "Tree":        transform.DOJump(getPosition(), 0.1f, 1, 0.15f, false);     break;
-            default:            transform.parent = null;                            break;
+            case "Train":       DestroyPlayer();                                            break;
+            case "Vehicle":     DestroyPlayer();                                            break;
+            case "Water":       DestroyPlayer();                                            break;
+            case "Log":         transform.parent = collision.collider.transform;            break;
+            case "Coin":        TakeCoinFunction(collision.gameObject);                     break;
+            case "Tree":        transform.DOJump(GetPosition(), 0.1f, 1, 0.15f, false);     break;
+            default:            transform.parent = null;                                    break;
         }
 
     }
 
-
-    public Vector3 getPosition()
+    // получает координаты приземления в случае если мы врезались в статичный объект 
+    public Vector3 GetPosition()
     {
         return new Vector3((int)(transform.position.x + 0.5),
                             1f,
                            (int)(transform.position.z + 0.5) - (transform.position.z < 0 ? 1 : 0));
     }
-    public void takeCoinFunction(GameObject gameObject)
+    public void TakeCoinFunction(GameObject gameObject)
     {
         ++coin;
         coinText.text = coin.ToString();
@@ -159,7 +165,7 @@ public class Player : MonoBehaviour
         Destroy(gameObject);
 
     }
-    public void finishHop()
+    public void FinishHop()
     {
         isHop = false;
     }

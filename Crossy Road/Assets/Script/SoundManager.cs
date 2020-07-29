@@ -7,9 +7,9 @@ using UnityEngine.UI;
 public class SoundManager : MonoBehaviour
 {
 
-    [SerializeField] private AudioMixerGroup Mixer;
-    [SerializeField] private GameObject backgroundToggle;
-    [SerializeField] private GameObject effectToggle;
+    [SerializeField] private AudioMixerGroup Mixer = null;
+    [SerializeField] private GameObject backgroundToggle = null;
+    [SerializeField] private GameObject effectToggle = null;
 
     private void Start()
     {

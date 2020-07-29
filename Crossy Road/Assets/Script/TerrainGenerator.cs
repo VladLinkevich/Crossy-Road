@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class TerrainGenerator : MonoBehaviour
 {
-    [SerializeField] private int maxTerrainCount;
+    [SerializeField] private int maxTerrainCount = 0;
     [SerializeField] private List<TerrainData> terrainDatas = new List<TerrainData>();
 
 
-    private GameObject[,] poolTerrain;
-    private int[] indexPool;
+    private GameObject[,] poolTerrain = null;
+    private int[] indexPool = null;
     private List<GameObject> currentTerrains = new List<GameObject>();
 
     private int selectTerrain = 0;
@@ -43,7 +43,7 @@ public class TerrainGenerator : MonoBehaviour
 
         // Чтобы при старте появлялись объекты terrainsDatas[0](в моем случае это земля) пять раз подряд. Что-то вроде начальной сайв зоны  
         selectTerrain = 0;                                                                                       
-        terrainRepeat = 32;          
+        terrainRepeat = 20;          
 
 
         // Начальная инициализация поля
@@ -54,6 +54,7 @@ public class TerrainGenerator : MonoBehaviour
 
     }
 
+    // Добавляет объекты
     public void SpawnTerrain(bool startGenerator = false)
     {
 
@@ -66,7 +67,7 @@ public class TerrainGenerator : MonoBehaviour
         }
 
          
-        currentTerrains.Add(selectPassiveTerrain(selectTerrain));
+        currentTerrains.Add(SelectPassiveTerrain(selectTerrain));
 
         currentPosition.x++;
         terrainRepeat--;
@@ -76,7 +77,8 @@ public class TerrainGenerator : MonoBehaviour
 
     }
 
-    private GameObject selectPassiveTerrain(int selectTerrain)
+    // Выбор неактивного объукта если таких нет выбирает последний активированный объект 
+    private GameObject SelectPassiveTerrain(int selectTerrain)
     {
         terrain = poolTerrain[selectTerrain, indexPool[selectTerrain]];
 

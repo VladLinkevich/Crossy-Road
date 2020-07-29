@@ -564,12 +564,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aea0952361c1e74aaf84f08c98f2131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxTerrainCount: 10
+  maxTerrainCount: 40
   terrainDatas:
   - {fileID: 11400000, guid: 96bcd267d09582f488ce41c9ece0f367, type: 2}
   - {fileID: 11400000, guid: 458959599be401547905e03a3e6050e6, type: 2}
   - {fileID: 11400000, guid: ad25b8359ebef124ebd8bfb717c833f6, type: 2}
-  currentPosition: {x: 0, y: 0, z: 0}
+  - {fileID: 11400000, guid: bc45b0d212fc60a4e99db0e7019a46fd, type: 2}
+  currentPosition: {x: -15, y: 0, z: 0}
 --- !u!4 &699155807
 Transform:
   m_ObjectHideFlags: 0
@@ -1129,6 +1130,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498675080214806386, guid: a09fbc3c39888e94e80901563c5e5293,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 122
       objectReference: {fileID: 0}
     - target: {fileID: 8852229344004757042, guid: a09fbc3c39888e94e80901563c5e5293,
         type: 3}

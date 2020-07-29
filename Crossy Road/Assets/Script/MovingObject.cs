@@ -6,8 +6,11 @@ using DG.Tweening;
 public class MovingObject : MonoBehaviour
 {
 
+    [SerializeField] private float road;
+
     private float duration;
     private bool firstStart = true;
+
 
     void Start()
     {
@@ -20,7 +23,7 @@ public class MovingObject : MonoBehaviour
         if (!firstStart)
         {
             transform
-                .DOMoveZ(transform.position.z + 40 - (80 * transform.rotation.y), duration, false)
+                .DOMoveZ(transform.position.z + road - (road * 2 * transform.rotation.y), duration, false)
                 .OnComplete(() => { gameObject.SetActive(false); });
         } else { firstStart = false; }
     }

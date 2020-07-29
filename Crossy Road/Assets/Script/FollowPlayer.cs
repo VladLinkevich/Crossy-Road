@@ -6,15 +6,16 @@ using UnityEngine;
 public class FollowPlayer : MonoBehaviour
 {
 
-    [SerializeField] private GameObject player;
-    [SerializeField] private Ease ease;
-    [SerializeField] private float duration;
+    [SerializeField] private GameObject player = null;
+    [SerializeField] private Ease ease = 0;
+    [SerializeField] private float duration = 0;
     // [SerializeField] private Vector3 offset;
 
     bool play = true;
 
-
-    public void fastUpMove()
+    // Описывает движение камеры если она далеко от игрока.
+    // После приближения вызывает SlowUpMove()
+    public void FastUpMove()
     {
 
         if (player.gameObject != null)
@@ -24,16 +25,17 @@ public class FollowPlayer : MonoBehaviour
                 transform
                         .DOMoveX(player.transform.position.x - 10, duration / 5)
                         .SetEase(ease)
-                        .OnComplete(fastUpMove);
+                        .OnComplete(FastUpMove);
             }
             else
             {
-                slowUpMove();
+                SlowUpMove();
             }
         }
     }
 
-    public void sideMove()
+    // Движение камеры в бок
+    public void SideMove()
     {
 
         if (player.gameObject != null) {
@@ -43,7 +45,8 @@ public class FollowPlayer : MonoBehaviour
         }
     }
 
-    private void slowUpMove()
+    // Движение камеры когда она близко к игроку
+    private void SlowUpMove()
     {
 
         int choiceDuration = (int)(player.transform.position.x - transform.position.x);
@@ -56,17 +59,18 @@ public class FollowPlayer : MonoBehaviour
             case 9:  newDuration = duration;                        break;
             case 8:  newDuration = duration * 3 / 4;                break;
             case 7:  newDuration = duration / 2;                    break;
-            default: Debug.Log("Follow Player Error");              break;
+            default: CheckIsPlay();                                 break;
         }
 
         transform
             .DOMoveX(player.transform.position.x - 7, newDuration)
             .SetEase(ease)
-            .OnComplete(()=> { checkIsPlay(); });
+            .OnComplete(()=> { CheckIsPlay(); });
         
     }
 
-    private void checkIsPlay()
+    // Проверка если игрок долго стоит то убивает его
+    private void CheckIsPlay()
     {
         if (player.transform.position.x - transform.position.x <= 7)
         {
@@ -74,7 +78,7 @@ public class FollowPlayer : MonoBehaviour
         }
     }
 
-    public bool isPlay()
+    public bool IsPlay()
     {
         return play;
     }

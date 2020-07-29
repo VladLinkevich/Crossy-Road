@@ -5,12 +5,12 @@ using UnityEngine;
 public class ControlButtons : MonoBehaviour
 {
 
-    public void pressPlay()
+    public void PressPlay()
     {
         Application.LoadLevel("Game");
     }
 
-    public void pressExit()
+    public void PressExit()
     {
         Application.Quit();
     }

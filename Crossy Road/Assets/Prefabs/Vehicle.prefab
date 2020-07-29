@@ -108,8 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fbcacbf201a43047aa8c740c2513635, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minDuratiun: 12
-  maxDuratiun: 18
+  road: 40
 --- !u!54 &-4239952124216228396
 Rigidbody:
   m_ObjectHideFlags: 0
